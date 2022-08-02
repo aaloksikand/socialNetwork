@@ -130,3 +130,15 @@ app.get('/read', (req, res) => {
     });
 });
 
+// To delete an object, the numerical id string must be wrapped with ObjectID()
+app.delete('/delete', (req, res) => {
+  // Use deleteOne() to delete one object
+  db.collection('bookCollection').deleteOne(
+    // This is the filter. We delete only the document that matches the _id provided in the request body,
+    { _id: ObjectId(req.body.id) },
+    (err) => {
+      if (err) throw err;
+      res.send("Document deleted");
+    }
+  );
+});
