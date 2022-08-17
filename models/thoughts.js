@@ -1,59 +1,33 @@
-const { Schema, Types } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 
-const thoughtSchema = new Schema(
+const thoughtSchema = new Schema (
   {
-    reactions: {
-      type: Schema.Types.ObjectId,
-      default: () => new Types.ObjectId(),
-    },
+    //defining thoughtText
     thoughtText: {
       type: String,
       required: true,
-      maxlength: 280,
+      minlength: 1,
+      maxlength: 280
     },
+    //defining createdAt
     createdAt: {
       type: Date,
       default: Date.now,
-      //getter method to format the timestamp on query
+      //user a getter method
     },
     username: {
       type: String,
-      required: true,
-      //the user that created the thought
+      required: true
     },
+    reactions: //array of nested documents created with the reactionSchema
   },
   {
     toJSON: {
-      getters: true,
-    },
-    id: false,
+      virtuals: true,  //required for reactionCount
+      getters: true,  //required for timestamp format
+    }
   }
-);
+)
 
-module.exports = thoughtSchema;
-//Create a virtual called reactionCount that retrieves the length 
-//of the thought's reactions array field on query.
-
-Reaction (SCHEMA ONLY)
-
-reactionId
-
-Use Mongoose's ObjectId data type
-Default value is set to a new ObjectId
-reactionBody
-
-String
-Required
-280 character maximum
-username
-
-String
-Required
-createdAt
-
-Date
-Set default value to the current timestamp
-Use a getter method to format the timestamp on query
-Schema Settings
-
-This will not be a model, but rather will be used as the reaction field's subdocument schema in the Thought model.
+//required to create Reaction schema only as a subdocument in Thought model.
+//should be defined first possibly.
