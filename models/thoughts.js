@@ -1,5 +1,31 @@
 const { Schema, model, Types } = require('mongoose');
 
+const reactionSchema = new Schema (
+  {
+    //created reactionSchema
+    reactionBody: {
+      type: String,
+      required: true,
+      minlength: 1,
+      maxlength: 280
+    },
+    username: {
+      type: String,
+      required: true
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      //getter method for format
+    }
+  },
+  {
+    toJSON: {
+      getters: true
+    }
+  }
+);
+
 const thoughtSchema = new Schema (
   {
     //defining thoughtText
