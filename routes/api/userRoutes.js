@@ -14,14 +14,14 @@ const router = require('express').Router();
 const {
   getUsers,
   getOneUser,
-  postUser,
+  createUser,
   updateUser,
   deleteUser,
   addFriend,
 } = require('../../controllers/userController');
 
 // /api/users
-router.route('/').get(getUsers).post(postUser);
+router.route('/').get(getUsers).post(createUser);
 
 // /api/users/:userId
 router
