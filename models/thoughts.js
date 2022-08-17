@@ -1,7 +1,12 @@
 const { Schema, model, Types } = require('mongoose');
+const moment = require('moment')
 
 const reactionSchema = new Schema (
   {
+    reactionId: {
+      type: Schema.Types.ObjectId,
+      default: ()=> new Types.ObjectId()
+    },
     //created reactionSchema
     reactionBody: {
       type: String,
@@ -16,7 +21,7 @@ const reactionSchema = new Schema (
     createdAt: {
       type: Date,
       default: Date.now,
-      //getter method for format
+      get: (createdAtVal) => moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a')
     }
   },
   {
@@ -39,19 +44,21 @@ const thoughtSchema = new Schema (
     createdAt: {
       type: Date,
       default: Date.now,
-      //user a getter method
+      get: (createdAtVal) => moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a')
     },
     username: {
       type: String,
       required: true
     },
-    reactions: //array of nested documents created with the reactionSchema
+    reactions: [reactionSchema]
   },
+
   {
     toJSON: {
       virtuals: true,  //required for reactionCount
       getters: true,  //required for timestamp format
-    }
+    },
+  id: false
   }
 )
 

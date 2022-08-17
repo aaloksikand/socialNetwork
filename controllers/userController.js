@@ -2,7 +2,6 @@ const { User, Thought } = require ('../models');
 
 const userController = {
   
-  //get all Users
   getUsers(req, res) {
     User.find()
         .then(async (users) => {
@@ -16,7 +15,6 @@ const userController = {
           return res.status(500).json (err);
         });
   },
-
   getOneUser(req, res) {
     User.findOne({ _id: req.params.id })
     .populate({path: 'thoughts', select: '-__v'})
@@ -81,7 +79,7 @@ const userController = {
   .catch(err => res.json(err));
   },
   deleteFriend(req, res) {
-    User.findOneAndUpdate({_id: req.params.id}, {$pull: { friends: req.params.friendId}}
+    User.findOneAndUpdate({_id: req.params.id}, {$pull: { friends: req.params.friendId}})
     .populate({path: 'friends', select: '-__v'})
     .select('-__v')
     .then(dbUserData => {
