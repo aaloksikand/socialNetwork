@@ -54,14 +54,11 @@ const thoughtSchema = new Schema (
     }
   }
 )
-//creatging reactionCount virtual from class activity 21
-// postSchema.virtual('commentCount').get(function () {
-//   return this.comments.length;
-// });
+
 thoughtSchema.virtual('reactionCount').get(function () {
   return this.reactions.length;
 });
 
-const Thoughts = model ('Thought', thoughtSchema);
+const Thought = model ('Thought', thoughtSchema);
 
-module.exports = Thoughts;
+module.exports = Thought;

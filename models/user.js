@@ -38,4 +38,14 @@ const userSchema = new Schema (
 }
 )
 //add virtuals
+//creatging friendCount virtual from class activity 21
+// postSchema.virtual('commentCount').get(function () {
+//   return this.comments.length;
+// });
+
+userSchema.virtual('friendCount').get(function() {
+  return this.friends.length;
+});
 const User = model ('User', userSchema)
+
+module.exports = User;
