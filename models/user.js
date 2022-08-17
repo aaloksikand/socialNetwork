@@ -21,12 +21,12 @@ const userSchema = new Schema (
   //defining thoughts referencing thoughts model
   thoughts: [{
     type: Schema.Types.ObjectId,
-    ref: 'Thoughts'
+    ref: 'Thought'
   }],
   //defining friends referencing same User model
   friends: [{
     type: Schema.Types.ObjectId,
-    ref: 'Users'
+    ref: 'User'
   }]
 },
 {
@@ -37,3 +37,5 @@ const userSchema = new Schema (
   }
 }
 )
+//add virtuals
+const User = model ('User', userSchema)
