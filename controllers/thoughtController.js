@@ -1,27 +1,27 @@
-const { Post, User } = require('../models');
+const { Thought, User } = require('../models');
 
 module.exports = {
-  getPosts(req, res) {
-    Post.find()
-      .then((posts) => res.json(posts))
+  getThoughts(req, res) {
+    Thought.find()
+      .then((Thoughts) => res.json(Thoughts))
       .catch((err) => res.status(500).json(err));
   },
-  getSinglePost(req, res) {
-    Post.findOne({ _id: req.params.postId })
-      .then((post) =>
-        !post
-          ? res.status(404).json({ message: 'No post with that ID' })
-          : res.json(post)
+  getSingleThought(req, res) {
+    Thought.findOne({ _id: req.params.ThoughtId })
+      .then((Thought) =>
+        !Thought
+          ? res.status(404).json({ message: 'No Thought with that ID' })
+          : res.json(Thought)
       )
       .catch((err) => res.status(500).json(err));
   },
-  // create a new post
-  createPost(req, res) {
-    Post.create(req.body)
-      .then((post) => {
+  // create a new Thought
+  createThought(req, res) {
+    Thought.create(req.body)
+      .then((Thought) => {
         return User.findOneAndUpdate(
           { _id: req.body.userId },
-          { $addToSet: { posts: post._id } },
+          { $addToSet: { Thoughts: Thought._id } },
           { new: true }
         );
       })
@@ -29,8 +29,8 @@ module.exports = {
         !user
           ? res
               .status(404)
-              .json({ message: 'Post created, but found no user with that ID' })
-          : res.json('Created the post 🎉')
+              .json({ message: 'Thought created, but found no user with that ID' })
+          : res.json('Created the Thought 🎉')
       )
       .catch((err) => {
         console.log(err);
