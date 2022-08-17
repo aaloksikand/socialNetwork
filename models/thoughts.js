@@ -54,6 +54,14 @@ const thoughtSchema = new Schema (
     }
   }
 )
+//creatging reactionCount virtual from class activity 21
+// postSchema.virtual('commentCount').get(function () {
+//   return this.comments.length;
+// });
+thoughtSchema.virtual('reactionCount').get(function () {
+  return this.reactions.length;
+});
 
-//required to create Reaction schema only as a subdocument in Thought model.
-//should be defined first possibly.
+const Thoughts = model ('Thought', thoughtSchema);
+
+module.exports = Thoughts;
